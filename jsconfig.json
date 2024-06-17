@@ -1,0 +1,19 @@
+{
+      "compilerOptions": {
+            "baseUrl": "src",
+            "paths": {
+                  "Router/*": [
+                        "Router/*"
+                  ],
+                  "hook/*": [
+                        "hook/*"
+                  ],
+                  "asset/*": [
+                        "asset/*"
+                  ]
+            }
+      },
+      "include": [
+            "src"
+      ]
+}

@@ -2,17 +2,17 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const ProtectRoute = (Component) => {
-    const ProtectRoute = (props) => {
+const AuthRoute = (Component) => {
+    const RouteComponent = (props) => {
         const auth = useSelector((state) => state.auth);
-        
+
         return auth.token ? (
-            <Component {...props} />
+            <Navigate to="/" replace />
         ) : (
-            <Navigate to="/auth" replace />
+            <Component {...props} />
         );
     };
-    return ProtectRoute;
+    return RouteComponent;
 };
 
-export default ProtectRoute;
+export default AuthRoute;

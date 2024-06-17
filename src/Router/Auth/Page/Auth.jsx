@@ -1,10 +1,14 @@
 import React from "react";
 
+import AuthBackgroundComponent from "../Components/background/Background";
+import AuthComponent from "../Components/authComponent/AuthComponent";
+
 const Auth = () => {
+
     return (
-        <div>
-            <h1>Auth Page</h1>
-        </div>
+        <AuthBackgroundComponent>
+            <AuthComponent />
+        </AuthBackgroundComponent>
     );
 };
 
