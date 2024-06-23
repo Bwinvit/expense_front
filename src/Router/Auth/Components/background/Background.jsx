@@ -56,7 +56,7 @@ const AuthBackgroundComponent = ({ children }) => {
                 <BackgroundImage {...scrollAnimation} />
                 <BackgroundImage style={{ top: "100%" }} {...scrollAnimation} />
             </BackgroundContainer>
-            <ContainerChild style={width > 768 ? { marginTop: 150 } : {}}>
+            <ContainerChild style={width > 768 ? { marginTop: 100 } : {}}>
                 {children}
             </ContainerChild>
         </>

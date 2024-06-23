@@ -7,7 +7,7 @@ import AuthDisplay from "../AuthDisplay/AuthDisplay";
 
 const AuthContainer = styled.div`
     width: ${(props) => props.width}px;
-    max-width: 1440px;
+    max-width: 1024px;
     height: ${(props) => props.height}px;
     border-radius: 0.5rem;
     display: grid;
