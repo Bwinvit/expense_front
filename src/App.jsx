@@ -6,6 +6,7 @@ import AuthProvider from "./Router/Auth/store/context.jsx";
 import enUS from "antd/es/calendar/locale/en_US";
 import "antd/dist/reset.css";
 import { ConfigProvider } from "antd";
+import CommonProvider from "Router/Store/context";
 
 const config = {
   locale: enUS,
@@ -40,7 +41,9 @@ const App = () => {
     <ConfigProvider {...config}>
       <Provider store={store}>
         <AuthProvider>
-          <AppRouter />
+          <CommonProvider>
+            <AppRouter />
+          </CommonProvider>
         </AuthProvider>
       </Provider>
     </ConfigProvider>
