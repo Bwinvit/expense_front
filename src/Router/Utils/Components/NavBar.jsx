@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { PiCoinVerticalDuotone } from "react-icons/pi";
-import { Avatar, Badge, Button, Divider, Drawer, Modal, Popover } from "antd";
+import { Avatar, Badge, Button, Popover, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+import _ from "lodash";
 
 import { UserOutlined } from "@ant-design/icons";
 import { GiStripedSun } from "react-icons/gi";
+import UserPopOver from "./UserPopOver";
 
 const NavComponent = styled.div`
   background-color: #ead474;
@@ -120,13 +122,15 @@ const NavBar = ({ dimensions, handleToggleDrawer, handleToggleModal }) => {
             {dimensions.width < 768 ? "" : "Add Transaction"}
           </Button>
         </div>
-        <div className="name">{auth.user.username}</div>
+        <div className="name">
+          {!_.isEmpty(auth.user) ? auth.user.username : <>Loading</>}
+        </div>
         <div className="badge">
           <Popover
-            title="Hello"
+            title="Menu"
             placement="bottomLeft"
             trigger="click"
-            content={<div>Content</div>}
+            content={<UserPopOver />}
           >
             <Badge count={0}>
               <Avatar shape="square" icon={<UserOutlined />} />

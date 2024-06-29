@@ -1,28 +1,29 @@
 {
       "compilerOptions": {
-            "baseUrl": "src",
-            "paths": {
-                  "api/*": [
-                        "api/*"
-                  ],
-                  "asset/*": [
-                        "asset/*"
-                  ],
-                  "config/*": [
-                        "config/*"
-                  ],
-                  "hook/*": [
-                        "hook/*"
-                  ],
-                  "Router/*": [
-                        "Router/*"
-                  ],
-                  "store/*": [
-                        "store/*"
-                  ],
-            }
+        "baseUrl": "src",
+        "paths": {
+          "api/*": [
+            "api/*"
+          ],
+          "asset/*": [
+            "asset/*"
+          ],
+          "config/*": [
+            "config/*"
+          ],
+          "hook/*": [
+            "hook/*"
+          ],
+          "Router/*": [
+            "Router/*"
+          ],
+          "store/*": [
+            "store/*"
+          ]
+        }
       },
       "include": [
-            "src"
+        "src"
       ]
-}
+    }
+    
