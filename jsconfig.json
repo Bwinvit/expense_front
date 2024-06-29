@@ -2,18 +2,24 @@
       "compilerOptions": {
             "baseUrl": "src",
             "paths": {
-                  "Router/*": [
-                        "Router/*"
-                  ],
-                  "hook/*": [
-                        "hook/*"
+                  "api/*": [
+                        "api/*"
                   ],
                   "asset/*": [
                         "asset/*"
                   ],
-                  "Storybook/*": [
-                        "Storybook/*"
-                  ]
+                  "config/*": [
+                        "config/*"
+                  ],
+                  "hook/*": [
+                        "hook/*"
+                  ],
+                  "Router/*": [
+                        "Router/*"
+                  ],
+                  "store/*": [
+                        "store/*"
+                  ],
             }
       },
       "include": [

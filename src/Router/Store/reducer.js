@@ -56,6 +56,43 @@ const commonReducer = (state = initialState, action) => {
         ...state,
         categoryTree: action.payload,
       };
+    case CommonAction.CLEAR_TRANSACTION_DATA:
+      return {
+        ...state,
+        transactionData: initialState.transactionData,
+      };
+    case CommonAction.CHANGE_TRANSACTION_DATA_DATE:
+      return {
+        ...state,
+        transactionData: {
+          ...state.transactionData,
+          date: action.payload,
+        },
+      };
+    case CommonAction.CHANGE_TRANSACTION_DATA_CATEGORY:
+      return {
+        ...state,
+        transactionData: {
+          ...state.transactionData,
+          categoryId: action.payload,
+        },
+      };
+    case CommonAction.CHANGE_TRANSACTION_DATA_AMOUNT:
+      return {
+        ...state,
+        transactionData: {
+          ...state.transactionData,
+          amount: action.payload,
+        },
+      };
+    case CommonAction.CHANGE_TRANSACTION_DATA_DESCRIPTION:
+      return {
+        ...state,
+        transactionData: {
+          ...state.transactionData,
+          description: action.payload,
+        },
+      };
     default:
       return state;
   }

@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
-import homeReducer from "../Router/Home/store/reducer";
-import authReducer from "../Router/Auth/store/reducer";
 import commonReducer from "Router/Store/reducer";
+
+import authReducer from "../Router/Auth/store/reducer";
+import homeReducer from "../Router/Home/store/reducer";
 
 const rootReducer = combineReducers({
   home: homeReducer,

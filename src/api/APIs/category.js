@@ -1,5 +1,6 @@
-import axiosInstance from "../utils/request";
 import _ from "lodash";
+
+import axiosInstance from "../utils/request";
 
 const uri = "/api/category";
 

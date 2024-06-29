@@ -1,4 +1,4 @@
-import { FETCH_HOME_DATA } from './action';
+import { FETCH_HOME_DATA } from "./action";
 
 const initialState = {
   data: null,
