@@ -5,19 +5,34 @@ import _ from "lodash";
 import { TransactionTypeService } from "api/APIs/transactionType";
 import { CategoryService } from "api/APIs/category";
 import { CommonAction } from "./action";
+import { useAuth } from "Router/Auth/store/context";
 
 const CommonContext = createContext();
 
 export const useTransactionType = () => useContext(CommonContext);
 
 const CommonProvider = ({ children }) => {
+  const { fetchUserProfile } = useAuth();
   const dispatch = useDispatch();
   const common = useSelector((state) => state.common);
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    initPage();
-  }, []);
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      initialize();
+    }
+  }, [auth.token]);
+
+  const initialize = async () => {
+    try {
+      await fetchUserProfile();
+      initPage();
+    } catch (error) {
+      message.error("Failed to fetch user profile");
+      console.error("Error fetching user profile:", error);
+    }
+  };
 
   const initPage = async () => {
     try {

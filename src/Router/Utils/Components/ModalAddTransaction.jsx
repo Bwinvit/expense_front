@@ -119,9 +119,9 @@ const ModalAddTransaction = ({
       description: common.transactionData.description,
     };
 
-    const resTransaction =
-      await TransactionService.postTransaction(migrateData);
-    console.log("🚀 ~ handlePostTransaction ~ resTransaction:", resTransaction);
+    const resTransaction = await TransactionService.postTransaction(
+      migrateData
+    );
     setLoading(false);
   };
 

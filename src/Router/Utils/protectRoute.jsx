@@ -5,9 +5,9 @@ import ProtectedLayout from "./ProtectLayout";
 
 const ProtectRoute = (Component) => {
   const ProtectRoute = (props) => {
-    const auth = useSelector((state) => state.auth);
+    const token = localStorage.getItem("token");
 
-    return auth.token ? (
+    return token ? (
       <ProtectedLayout>
         <Component {...props} />
       </ProtectedLayout>

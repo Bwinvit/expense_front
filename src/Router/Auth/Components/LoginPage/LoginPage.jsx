@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Button, Input, Select, Space, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "Router/Auth/store/action";
+import { useAuth } from "Router/Auth/store/context";
 
 const LoginComponent = styled.div`
   margin: 2rem;
@@ -96,6 +96,7 @@ const Option = () => {
 const LoginPage = ({ authPage }) => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const { login } = useAuth();
 
   const [loginData, setLoginData] = useState({
     credential: {
@@ -152,7 +153,7 @@ const LoginPage = ({ authPage }) => {
 
   const handleLogin = () => {
     if (validateLoginData()) {
-      dispatch(login(loginData.credential.data, loginData.password));
+      login(loginData.credential.data, loginData.password);
     }
   };
 

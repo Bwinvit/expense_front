@@ -5,7 +5,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "Router/Auth/store/action";
+import { useAuth } from "Router/Auth/store/context";
 
 const UserPopOverComponent = styled.div`
   .menu_com {
@@ -36,13 +36,14 @@ const UserPopOverComponent = styled.div`
 const UserPopOver = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { logout } = useAuth();
 
   const handleNavigate = (path) => {
     navigate(path);
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    logout();
     navigate("/auth");
   };
 

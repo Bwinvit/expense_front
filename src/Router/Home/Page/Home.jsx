@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { setPageHeader } from "Router/Auth/store/action";
 import { useDispatch } from "react-redux";
+import { useAuth } from "Router/Auth/store/context";
 
 const Home = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { setPageHeader } = useAuth();
 
   useEffect(() => {
-    dispatch(setPageHeader("Home"));
+    setPageHeader("Home");
   }, []);
 
   return (
