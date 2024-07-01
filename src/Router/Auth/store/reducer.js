@@ -8,6 +8,7 @@ const initialState = {
   quote: [],
   isOnline: false,
   pageHeader: "",
+  transactionAdded: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -38,6 +39,22 @@ const authReducer = (state = initialState, action) => {
       return { ...state, error: action.payload };
     case AuthAction.SET_ONLINE_STATUS:
       return { ...state, isOnline: action.payload };
+    case AuthAction.ADD_TRANSACTION_SUCCESS:
+      return {
+        ...state,
+        transactionAdded: true,
+      };
+    case AuthAction.ADD_TRANSACTION_FAILURE:
+      return {
+        ...state,
+        transactionAdded: false,
+        error: action.payload,
+      };
+    case AuthAction.CLEAR_TRANSACTION_ADDED:
+      return {
+        ...state,
+        transactionAdded: false,
+      };
     default:
       return state;
   }

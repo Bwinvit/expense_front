@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import {
   Modal,
@@ -13,6 +13,7 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import { FaBahtSign } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
+import { AuthAction } from "Router/Auth/store/action.js";
 import { CommonAction } from "../../Store/action.js";
 import { TransactionService } from "api/APIs/transaction.js";
 import _ from "lodash";
@@ -119,9 +120,20 @@ const ModalAddTransaction = ({
       description: common.transactionData.description,
     };
 
-    const resTransaction = await TransactionService.postTransaction(
+    const { data, status } = await TransactionService.postTransaction(
       migrateData
     );
+    if (status === 201) {
+      message.success(`🎊 Successfully 🎊`);
+      dispatch({
+        type: AuthAction.ADD_TRANSACTION_SUCCESS,
+      });
+    } else {
+      message.error(data.message);
+      dispatch({
+        type: AuthAction.ADD_TRANSACTION_FAILURE,
+      });
+    }
     setLoading(false);
   };
 

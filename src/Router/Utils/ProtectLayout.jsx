@@ -10,7 +10,10 @@ import NavBar from "./Components/NavBar";
 
 const LayoutComponent = styled.div``;
 
-const ContainerCompoent = styled.div``;
+const ContainerCompoent = styled.div`
+  max-width: 1200px;
+  margin: 1rem 4rem 0 4rem;
+`;
 
 const ProtectedLayout = ({ children }) => {
   const [ref, dimensions] = useDimensions();

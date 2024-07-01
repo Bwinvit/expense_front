@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import styled from "styled-components";
 import { useAuth } from "Router/Auth/store/context";
+import MonthlySummary from "./Components/MonthlySummary/MonthlySummary";
+import HomeProvider from "../store/context";
+
+const HomeComponent = styled.div``;
 
 const Home = () => {
-  const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const { setPageHeader } = useAuth();
 
   useEffect(() => {
@@ -13,10 +14,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
+    <HomeComponent>
+      <MonthlySummary />
+    </HomeComponent>
   );
 };
 
-export default Home;
+const HomePageWrapper = () => (
+  <HomeProvider>
+    <Home />
+  </HomeProvider>
+);
+
+export default HomePageWrapper;

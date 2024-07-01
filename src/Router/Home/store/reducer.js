@@ -1,13 +1,13 @@
-import { FETCH_HOME_DATA } from "./action";
+import { homeAction } from "./action";
 
 const initialState = {
-  data: null,
+  monthlySum: {},
 };
 
 const homeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_HOME_DATA:
-      return { ...state, data: action.payload };
+    case homeAction.FETCH_HOME_DATA:
+      return { ...state, monthlySum: action.payload.totalsByType };
     default:
       return state;
   }

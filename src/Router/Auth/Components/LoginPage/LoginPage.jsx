@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Button, Input, Select, Space, message } from "antd";
+import { Button, Form, Input, Select, Space, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "Router/Auth/store/context";
 
-const LoginComponent = styled.div`
+const LoginComponent = styled(Form)`
   margin: 2rem;
 
   .form_component {
