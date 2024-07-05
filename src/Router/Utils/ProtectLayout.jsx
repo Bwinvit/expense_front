@@ -3,19 +3,26 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import useDimensions from "hook/useComponentDimension";
 import _ from "lodash";
+import useWindowDimension from "hook/useWindowDimension";
 
 import ModalAddTransaction from "./Components/ModalAddTransaction";
 import DrawerMenu from "./Components/DrawerMenu";
 import NavBar from "./Components/NavBar";
 
-const LayoutComponent = styled.div``;
+const LayoutComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const ContainerCompoent = styled.div`
-  max-width: 1200px;
-  margin: 1rem 4rem 0 4rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: calc(1200px + 2rem);
 `;
 
 const ProtectedLayout = ({ children }) => {
+  const { width } = useWindowDimension();
   const [ref, dimensions] = useDimensions();
   const { categoryTree } = useSelector((state) => state.common);
 

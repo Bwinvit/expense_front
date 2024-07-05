@@ -17,6 +17,7 @@ import { AuthAction } from "Router/Auth/store/action.js";
 import { CommonAction } from "../../Store/action.js";
 import { TransactionService } from "api/APIs/transaction.js";
 import _ from "lodash";
+import ModalTransaction from "Components/ModalTransaction/ModalTransaction.jsx";
 
 const ModalComponent = styled(Modal)`
   .form {
@@ -137,87 +138,86 @@ const ModalAddTransaction = ({
     setLoading(false);
   };
 
+  const migrateProps = {
+    open: isVisibleModal,
+    handleClearTransaction: handleClearTransaction,
+    handleCloseModal: handleCloseModal,
+    handleChangeDate: handleChangeDate,
+    handleChangeCategory: handleChangeCategory,
+    handleChangeAmount: handleChangeAmount,
+    handleChangeDescription: handleChangeDescription,
+    handleSubmitTransaction: handleSubmitTransaction,
+    optionCategoryTree: optionCategoryTree,
+    loading: loading,
+  };
+
   return (
-    <ModalComponent
-      title="Add Transaction"
-      open={isVisibleModal}
-      footer={null}
-      onCancel={() => {
-        handleClearTransaction();
-        handleCloseModal();
-      }}
-    >
-      <div className="form">
-        <div className="form_label">Date:</div>
-        <DatePicker
-          className="form_input"
-          onChange={handleChangeDate}
-          selected={
-            common.transactionData.date
-              ? new Date(common.transactionData.date * 1000)
-              : null
-          }
-        />
-      </div>
-      <div className="form">
-        <div className="form_label">Category:</div>
-        <Select
-          className="form_input"
-          dropdownRender={(option) => (
-            <>
-              {option}
-              <Divider />
-              <Space style={{ padding: "0 8px 4px" }}>
-                <Button icon={<PlusOutlined />}>Add Cetegory</Button>
-              </Space>
-            </>
-          )}
-          options={optionCategoryTree}
-          onChange={handleChangeCategory}
-          value={
-            common.transactionData.categoryId
-              ? common.transactionData.categoryId
-              : null
-          }
-        />
-      </div>
-      <div className="form">
-        <div className="form_label">Amount:</div>
-        <Input
-          className="form_input"
-          suffix={<FaBahtSign />}
-          onChange={handleChangeAmount}
-          value={common.transactionData.amount}
-        />
-      </div>
-      <div className="form">
-        <div className="form_label">Description:</div>
-        <Input.TextArea
-          className="form_input"
-          onChange={handleChangeDescription}
-          value={common.transactionData.description}
-        />
-      </div>
-      <div className="button_group">
-        <Button
-          onClick={() => {
-            handleClearTransaction();
-            handleCloseModal();
-          }}
-          className="button"
-        >
-          Cancel
-        </Button>
-        <Button
-          type="primary"
-          loading={loading}
-          onClick={handleSubmitTransaction}
-          className="button_primary"
-        >
-          Submit
-        </Button>
-      </div>
-    </ModalComponent>
+    // <ModalComponent
+    //   title="Add Transaction"
+    //   open={isVisibleModal}
+    //   footer={null}
+    //   onCancel={() => {
+    //     handleClearTransaction();
+    //     handleCloseModal();
+    //   }}
+    // >
+    //   <div className="form">
+    //     <div className="form_label">Date:</div>
+    //     <DatePicker className="form_input" onChange={handleChangeDate} />
+    //   </div>
+    //   <div className="form">
+    //     <div className="form_label">Category:</div>
+    //     <Select
+    //       className="form_input"
+    //       dropdownRender={(option) => (
+    //         <>
+    //           {option}
+    //           <Divider />
+    //           <Space style={{ padding: "0 8px 4px" }}>
+    //             <Button icon={<PlusOutlined />}>Add Cetegory</Button>
+    //           </Space>
+    //         </>
+    //       )}
+    //       options={optionCategoryTree}
+    //       onChange={handleChangeCategory}
+    //     />
+    //   </div>
+    //   <div className="form">
+    //     <div className="form_label">Amount:</div>
+    //     <Input
+    //       className="form_input"
+    //       suffix={<FaBahtSign />}
+    //       onChange={handleChangeAmount}
+    //     />
+    //   </div>
+    //   <div className="form">
+    //     <div className="form_label">Description:</div>
+    //     <Input.TextArea
+    //       className="form_input"
+    //       onChange={handleChangeDescription}
+    //     />
+    //   </div>
+    //   <div className="button_group">
+    //     <Button
+    //       onClick={() => {
+    //         handleClearTransaction();
+    //         handleCloseModal();
+    //       }}
+    //       className="button"
+    //     >
+    //       Cancel
+    //     </Button>
+    //     <Button
+    //       type="primary"
+    //       loading={loading}
+    //       onClick={handleSubmitTransaction}
+    //       className="button_primary"
+    //     >
+    //       Submit
+    //     </Button>
+    //   </div>
+    // </ModalComponent>
+    <ModalTransaction props={migrateProps} />
   );
 };
 

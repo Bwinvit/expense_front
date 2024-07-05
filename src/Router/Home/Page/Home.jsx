@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useAuth } from "Router/Auth/store/context";
 import MonthlySummary from "./Components/MonthlySummary/MonthlySummary";
 import HomeProvider from "../store/context";
+import ExpenseBreakdown from "./Components/MonthlySummary/ExpenseBreakdown/ExpenseBreakdown";
 
 const HomeComponent = styled.div``;
 
@@ -16,6 +17,7 @@ const Home = () => {
   return (
     <HomeComponent>
       <MonthlySummary />
+      <ExpenseBreakdown />
     </HomeComponent>
   );
 };

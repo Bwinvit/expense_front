@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,16 +18,21 @@ const MonthlySummaryComponent = styled.div`
 
 const MonthlySummary = () => {
   const home = useSelector((state) => state.home);
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   return (
     <MonthlySummaryComponent>
-      <Title level={5}>Monthly Summary</Title>
-      <div className="card_container">
-        {_.map(home.monthlySum, (transType) => (
-          <MonthlyCardComponent transType={transType} />
-        ))}
-      </div>
+      {!_.isEmpty(home.monthlySum) && (
+        <>
+          <Title level={5}>Monthly Summary</Title>
+          <div className="card_container">
+            {_.map(home.monthlySum, (transType) => (
+              <MonthlyCardComponent key={transType.id} transType={transType} />
+            ))}
+          </div>
+        </>
+      )}
     </MonthlySummaryComponent>
   );
 };
