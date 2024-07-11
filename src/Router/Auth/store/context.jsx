@@ -84,6 +84,10 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await AuthService.getProfile();
       dispatch({
+        type: AuthAction.SET_UPCOMING_BILLS,
+        payload: response.upcomingBills,
+      });
+      dispatch({
         type: AuthAction.FETCH_USER_PROFILE_SUCCESS,
         payload: response,
       });

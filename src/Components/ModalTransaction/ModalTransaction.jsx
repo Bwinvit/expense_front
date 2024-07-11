@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { PlusOutlined } from "@ant-design/icons";
 import { FaBahtSign } from "react-icons/fa6";
 import { Modal, DatePicker, Select, Divider, Space, Button, Input } from "antd";
+import _ from "lodash";
+import dayjs from "dayjs";
 
 const ModalComponent = styled(Modal)`
   .form {
@@ -24,9 +26,9 @@ const ModalComponent = styled(Modal)`
   }
 `;
 
-const ModalTransaction = (props) => {
+const ModalTransaction = ({ props }) => {
   const {
-    open,
+    isVisibleModal,
     handleClearTransaction,
     handleCloseModal,
     handleChangeDate,
@@ -36,12 +38,14 @@ const ModalTransaction = (props) => {
     handleSubmitTransaction,
     optionCategoryTree,
     loading,
+    transactionPayload,
   } = props;
+  const considerateEdit = !_.isEmpty(transactionPayload) ? true : false;
 
   return (
     <ModalComponent
       title="Add Transaction"
-      open={open}
+      open={isVisibleModal}
       footer={null}
       onCancel={() => {
         handleClearTransaction();
@@ -50,7 +54,11 @@ const ModalTransaction = (props) => {
     >
       <div className="form">
         <div className="form_label">Date:</div>
-        <DatePicker className="form_input" onChange={handleChangeDate} />
+        <DatePicker
+          className="form_input"
+          onChange={handleChangeDate}
+          defaultValue={considerateEdit ? dayjs(transactionPayload.date) : ""}
+        />
       </div>
       <div className="form">
         <div className="form_label">Category:</div>
@@ -67,6 +75,7 @@ const ModalTransaction = (props) => {
           )}
           options={optionCategoryTree}
           onChange={handleChangeCategory}
+          defaultValue={considerateEdit ? transactionPayload.category.name : ""}
         />
       </div>
       <div className="form">
@@ -75,6 +84,7 @@ const ModalTransaction = (props) => {
           className="form_input"
           suffix={<FaBahtSign />}
           onChange={handleChangeAmount}
+          defaultValue={considerateEdit ? transactionPayload.amount : ""}
         />
       </div>
       <div className="form">
@@ -82,6 +92,7 @@ const ModalTransaction = (props) => {
         <Input.TextArea
           className="form_input"
           onChange={handleChangeDescription}
+          defaultValue={considerateEdit ? transactionPayload.description : ""}
         />
       </div>
       <div className="button_group">

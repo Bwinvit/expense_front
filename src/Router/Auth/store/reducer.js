@@ -9,6 +9,8 @@ const initialState = {
   isOnline: false,
   pageHeader: "",
   transactionAdded: false,
+  upcomingBills: [],
+  billInAction: {},
 };
 
 const authReducer = (state = initialState, action) => {
@@ -54,6 +56,21 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         transactionAdded: false,
+      };
+    case AuthAction.SET_UPCOMING_BILLS:
+      return {
+        ...state,
+        upcomingBills: action.payload,
+      };
+    case AuthAction.REGIS_BILL:
+      return {
+        ...state,
+        billInAction: action.payload,
+      };
+    case AuthAction.REMOVE_BILL:
+      return {
+        ...state,
+        billInAction: "",
       };
     default:
       return state;

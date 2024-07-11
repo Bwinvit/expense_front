@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthAction } from "Router/Auth/store/action.js";
-import { CommonAction } from "../../Store/action.js";
+import { transactionAction } from "Router/Transaction/store/action.js";
 import { TransactionService } from "api/APIs/transaction.js";
 import _ from "lodash";
 import ModalTransaction from "Components/ModalTransaction/ModalTransaction.jsx";
+import { useTransaction } from "Router/Transaction/store/context";
 
-const ModalAddTransaction = ({ isVisibleModal, setIsVisibleModal }) => {
+const ModalEditTransaction = ({ isVisibleModal, setIsVisibleModal }) => {
   const dispatch = useDispatch();
-  const common = useSelector((state) => state.common);
+  const transaction = useSelector((state) => state.transaction);
   const { categoryTree } = useSelector((state) => state.common);
+  const { fetchTransactions } = useTransaction();
 
   const [loading, setLoading] = useState(false);
   const [optionCategoryTree, setOptionCategoryTree] = useState([]);
@@ -20,10 +22,6 @@ const ModalAddTransaction = ({ isVisibleModal, setIsVisibleModal }) => {
       optionCategory();
     }
   }, [categoryTree]);
-
-  const handleCloseModal = () => {
-    setIsVisibleModal(false);
-  };
 
   const optionCategory = () => {
     const rearrangeData = _.map(categoryTree, (transactionType) => ({
@@ -38,86 +36,76 @@ const ModalAddTransaction = ({ isVisibleModal, setIsVisibleModal }) => {
     setOptionCategoryTree(rearrangeData);
   };
 
+  const harvestTransacctionData = () => {
+    const pickedTransaction = _.find(
+      transaction.transactionData,
+      (trans) => trans._id === transaction.transactionInAction
+    );
+    return pickedTransaction;
+  };
+
+  const handleCloseModal = () => {
+    setIsVisibleModal(false);
+  };
+
   const handleClearTransaction = () => {
     dispatch({
-      type: CommonAction.CLEAR_TRANSACTION_DATA,
+      type: transactionAction.CLEAR_TRANSACTION_DATA,
     });
   };
 
   const handleChangeDate = (date, dateString) => {
     dispatch({
-      type: CommonAction.CHANGE_TRANSACTION_DATA_DATE,
+      type: transactionAction.CHANGE_TRANSACTION_DATA_DATE,
       payload: new Date(dateString).getTime() / 1000,
     });
   };
 
   const handleChangeCategory = (value) => {
     dispatch({
-      type: CommonAction.CHANGE_TRANSACTION_DATA_CATEGORY,
+      type: transactionAction.CHANGE_TRANSACTION_DATA_CATEGORY,
       payload: value,
     });
   };
 
   const handleChangeAmount = (e) => {
     dispatch({
-      type: CommonAction.CHANGE_TRANSACTION_DATA_AMOUNT,
+      type: transactionAction.CHANGE_TRANSACTION_DATA_AMOUNT,
       payload: e.target.value,
     });
   };
 
   const handleChangeDescription = (e) => {
     dispatch({
-      type: CommonAction.CHANGE_TRANSACTION_DATA_DESCRIPTION,
+      type: transactionAction.CHANGE_TRANSACTION_DATA_DESCRIPTION,
       payload: e.target.value,
     });
   };
 
   const handleSubmitTransaction = () => {
     setLoading(true);
-    validationForm();
-  };
-
-  const validationForm = () => {
-    const errorArray = {};
-
-    if (!common.transactionData.date) {
-      errorArray.date = "Date is required";
-    }
-    if (!common.transactionData.categoryId) {
-      errorArray.categoryId = "Category is required";
-    }
-    if (!common.transactionData.amount) {
-      errorArray.amount = "Amount is required";
-    } else if (common.transactionData.amount <= 0) {
-      errorArray.amount = "Amount must be greater than 0";
-    }
-
-    if (_.isEmpty(errorArray)) {
-      handlePostTransaction();
-    } else {
-      _.forEach(errorArray, (value, key) => {
-        message.error(value);
-      });
-      setLoading(false);
-    }
+    handlePostTransaction();
   };
 
   const handlePostTransaction = async () => {
     const migrateData = {
-      date: common.transactionData.date,
-      categoryId: common.transactionData.categoryId,
-      amount: common.transactionData.amount,
-      description: common.transactionData.description,
+      date: transaction.transactionPayload.date,
+      categoryId: transaction.transactionPayload.categoryId,
+      amount: transaction.transactionPayload.amount,
+      description: transaction.transactionPayload.description,
     };
 
-    const { data, status } = await TransactionService.postTransaction(
-      migrateData
-    );
-    if (status === 201) {
+    const { data, status } = await TransactionService.updateTransaction({
+      data: migrateData,
+      id: transaction.transactionInAction,
+    });
+    if (status === 200) {
       message.success(`🎊 Successfully 🎊`);
       dispatch({
         type: AuthAction.ADD_TRANSACTION_SUCCESS,
       });
+      fetchTransactions();
+      handleCloseModal();
     } else {
       message.error(data.message);
       dispatch({
@@ -138,9 +126,10 @@ const ModalAddTransaction = ({ isVisibleModal, setIsVisibleModal }) => {
     handleSubmitTransaction: handleSubmitTransaction,
     optionCategoryTree: optionCategoryTree,
     loading: loading,
+    transactionPayload: harvestTransacctionData(),
   };
 
   return <ModalTransaction props={migrateProps} />;
 };
 
-export default ModalAddTransaction;
+export default ModalEditTransaction;

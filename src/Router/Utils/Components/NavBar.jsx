@@ -18,6 +18,9 @@ const NavComponent = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  z-index: 100;
+  box-shadow: -2px 8px 8px -7px rgba(0, 0, 0, 0.24);
 
   .left {
     display: flex;
@@ -132,7 +135,7 @@ const NavBar = ({ dimensions, handleToggleDrawer, handleToggleModal }) => {
             trigger="click"
             content={<UserPopOver />}
           >
-            <Badge count={0}>
+            <Badge count={_.size(auth.upcomingBills)}>
               <Avatar shape="square" icon={<UserOutlined />} />
             </Badge>
           </Popover>

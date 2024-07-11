@@ -95,7 +95,11 @@ const CommonProvider = ({ children }) => {
   };
 
   return (
-    <CommonContext.Provider value={common}>{children}</CommonContext.Provider>
+    <CommonContext.Provider
+      value={{ common, fetchTransactionType, fetchCategory }}
+    >
+      {children}
+    </CommonContext.Provider>
   );
 };
 

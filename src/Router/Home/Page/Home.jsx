@@ -4,6 +4,7 @@ import { useAuth } from "Router/Auth/store/context";
 import MonthlySummary from "./Components/MonthlySummary/MonthlySummary";
 import HomeProvider from "../store/context";
 import ExpenseBreakdown from "./Components/MonthlySummary/ExpenseBreakdown/ExpenseBreakdown";
+import BreakdownChart from "./Components/BreakdownChart/BreakdownChart";
 
 const HomeComponent = styled.div``;
 
@@ -18,6 +19,7 @@ const Home = () => {
     <HomeComponent>
       <MonthlySummary />
       <ExpenseBreakdown />
+      <BreakdownChart />
     </HomeComponent>
   );
 };

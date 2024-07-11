@@ -69,7 +69,7 @@ const HomeProvider = ({ children }) => {
       });
       dispatch({
         type: homeAction.FETCH_EXPENSE_BREAKDOWN,
-        payload: transformedData,
+        payload: { extractData: transformedData, expenseRawDate: res },
       });
       dispatch({ type: homeAction.STATE_EXPENSE_BREAKDOWN });
     });

@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Popover, Table } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { transactionAction } from "Router/Transaction/store/action";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import { ControlOutlined } from "@ant-design/icons";
+import ModalEditTransaction from "../ModalEditTransaction/ModalEditTransaction";
 
 const TransactionDisplayComponent = styled.div`
   margin-top: 3rem;
@@ -19,6 +20,12 @@ const TransactionDisplay = () => {
   const transaction = useSelector((state) => state.transaction);
   const dispatch = useDispatch();
 
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+
+  const handleToggleEditModal = () => {
+    setIsVisibleModal(!isVisibleModal);
+  };
+
   const handleClickDelete = () => {
     dispatch({ type: transactionAction.CHANGE_STATE_MODAL_DELETE });
   };
@@ -32,7 +39,9 @@ const TransactionDisplay = () => {
 
   const content = (
     <ContentComponent>
-      <Button style={{ width: "100%" }}>Edit</Button>
+      <Button style={{ width: "100%" }} onClick={handleToggleEditModal}>
+        Edit
+      </Button>
       <Button
         type="primary"
         style={{ width: "100%" }}
@@ -114,6 +123,10 @@ const TransactionDisplay = () => {
         scroll={{
           x: 1100,
         }}
+      />
+      <ModalEditTransaction
+        isVisibleModal={isVisibleModal}
+        setIsVisibleModal={setIsVisibleModal}
       />
     </TransactionDisplayComponent>
   );

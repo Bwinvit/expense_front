@@ -22,6 +22,9 @@ const getTransactions = async ({ start, end, category }) => {
   return response.data;
 };
 const getTransaction = async (id) => await axiosInstance.get(`${uri}/${id}`);
+const updateTransaction = async ({ data, id }) =>
+  await axiosInstance.put(`${uri}/${id}`, data);
+
 const deleteTransaction = async (id) =>
   await axiosInstance.delete(`${uri}/${id}`);
 
@@ -29,5 +32,6 @@ export const TransactionService = {
   postTransaction,
   getTransactions: _.memoize(getTransactions),
   getTransaction,
+  updateTransaction,
   deleteTransaction,
 };

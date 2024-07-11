@@ -4,6 +4,12 @@ import _ from "lodash";
 const initialState = {
   isTransactionsLoading: false,
   transactionData: [],
+  transactionPayload: {
+    date: "",
+    categoryId: "",
+    amount: "",
+    description: "",
+  },
   filter: {
     start: "",
     end: "",
@@ -49,6 +55,43 @@ const transactionReducer = (state = initialState, action) => {
       return {
         ...state,
         isVisibleDeleteModal: !state.isVisibleDeleteModal,
+      };
+    case transactionAction.CLEAR_TRANSACTION_DATA:
+      return {
+        ...state,
+        transactionPayload: initialState.transactionPayload,
+      };
+    case transactionAction.CHANGE_TRANSACTION_DATA_DATE:
+      return {
+        ...state,
+        transactionPayload: {
+          ...state.transactionPayload,
+          date: action.payload,
+        },
+      };
+    case transactionAction.CHANGE_TRANSACTION_DATA_CATEGORY:
+      return {
+        ...state,
+        transactionPayload: {
+          ...state.transactionPayload,
+          categoryId: action.payload,
+        },
+      };
+    case transactionAction.CHANGE_TRANSACTION_DATA_AMOUNT:
+      return {
+        ...state,
+        transactionPayload: {
+          ...state.transactionPayload,
+          amount: action.payload,
+        },
+      };
+    case transactionAction.CHANGE_TRANSACTION_DATA_DESCRIPTION:
+      return {
+        ...state,
+        transactionPayload: {
+          ...state.transactionPayload,
+          description: action.payload,
+        },
       };
     default:
       return state;

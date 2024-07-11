@@ -16,7 +16,7 @@ const LayoutComponent = styled.div`
 `;
 
 const ContainerCompoent = styled.div`
-  padding: 2rem;
+  padding: 5rem 2rem;
   width: 100%;
   max-width: calc(1200px + 2rem);
 `;
@@ -24,17 +24,9 @@ const ContainerCompoent = styled.div`
 const ProtectedLayout = ({ children }) => {
   const { width } = useWindowDimension();
   const [ref, dimensions] = useDimensions();
-  const { categoryTree } = useSelector((state) => state.common);
 
   const [isVisibleDrawer, setIsVisibleDrawer] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const [optionCategoryTree, setOptionCategoryTree] = useState([]);
-
-  useEffect(() => {
-    if (!_.isEmpty(categoryTree)) {
-      optionCategory();
-    }
-  }, [categoryTree]);
 
   const handleToggleDrawer = () => {
     setIsVisibleDrawer((prev) => !prev);
@@ -46,23 +38,6 @@ const ProtectedLayout = ({ children }) => {
 
   const handleToggleModal = () => {
     setIsVisibleModal((prev) => !prev);
-  };
-
-  const handleCloseModal = () => {
-    setIsVisibleModal(false);
-  };
-
-  const optionCategory = () => {
-    const rearrangeData = _.map(categoryTree, (transactionType) => ({
-      label: transactionType.name,
-      title: transactionType.name,
-      options: _.map(transactionType.categories, (cate) => ({
-        label: cate.name,
-        value: cate._id,
-      })),
-    }));
-
-    setOptionCategoryTree(rearrangeData);
   };
 
   return (
@@ -81,8 +56,7 @@ const ProtectedLayout = ({ children }) => {
       />
       <ModalAddTransaction
         isVisibleModal={isVisibleModal}
-        handleCloseModal={handleCloseModal}
-        optionCategoryTree={optionCategoryTree}
+        setIsVisibleModal={setIsVisibleModal}
       />
     </LayoutComponent>
   );

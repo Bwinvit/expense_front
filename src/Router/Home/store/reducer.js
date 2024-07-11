@@ -6,6 +6,7 @@ const initialState = {
   monthlySumTransactionType: {},
   monthlySum: {},
   isLoadingExpenseBreakdown: false,
+  expenseRawDate: {},
   expenseBreakdown: {},
   expenseBreakdownInUse: {},
 };
@@ -29,8 +30,9 @@ const homeReducer = (state = initialState, action) => {
     case homeAction.FETCH_EXPENSE_BREAKDOWN:
       return {
         ...state,
-        expenseBreakdown: action.payload,
-        expenseBreakdownInUse: action.payload,
+        expenseRawDate: action.payload.expenseRawDate,
+        expenseBreakdown: action.payload.extractData,
+        expenseBreakdownInUse: action.payload.extractData,
       };
     case homeAction.SET_TRANSACTION_TYPE_TITLE:
       return { ...state, monthlySumTransactionType: action.payload };
